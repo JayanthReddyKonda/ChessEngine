@@ -16,5 +16,18 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+
+add_library(project_warnings INTERFACE)
+
+if(MSVC)
+    target_compile_options(project_warnings INTERFACE /W4 /permissive-)
+else()
+    target_compile_options(project_warnings INTERFACE -Wall -Wextra -Wpedantic)
+endif()
+
 # Include sub-projects.
 add_subdirectory(src)
+
+# Tests
+enable_testing()
+add_subdirectory(tests)
